@@ -18,11 +18,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		end
         fedora.vm.provider "qemu" do |qe|
             qe.memory = 1024
-            # qe.ssh_port = 50011
         end
 
 		fedora.vm.network :private_network, ip: "#{ipv4}"
 		fedora.vm.provision :shell, inline: $bootstrap, :args => "#{ipv4}"
-        fedora.vm.synced_folder ""
 	end
 end
