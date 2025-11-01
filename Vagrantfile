@@ -22,5 +22,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 		fedora.vm.network :private_network, ip: "#{ipv4}"
 		fedora.vm.provision :shell, inline: $bootstrap, :args => "#{ipv4}"
+        fedora.vm.synced_folder "./workspace", "/vagrant"
 	end
 end
