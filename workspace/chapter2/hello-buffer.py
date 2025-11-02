@@ -13,13 +13,19 @@ struct data_t {
 
 int hello(void *ctx) {
    struct data_t data = {};
-   char message[12] = "Hello World";
 
    data.pid = bpf_get_current_pid_tgid() >> 32;
    data.uid = bpf_get_current_uid_gid() & 0xFFFFFFFF;
 
+   if (data.pid % 2 == 0) {
+       char msg[12] = "Even PID";
+       bpf_probe_read_kernel(&data.message, sizeof(data.message), msg);
+   } else {
+       char msg[12] = "Odd PID";
+       bpf_probe_read_kernel(&data.message, sizeof(data.message), msg);
+   }
+
    bpf_get_current_comm(&data.command, sizeof(data.command));
-   bpf_probe_read_kernel(&data.message, sizeof(data.message), message);
 
    output.perf_submit(ctx, &data, sizeof(data));
 
