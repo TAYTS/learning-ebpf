@@ -5,6 +5,14 @@ import ctypes as ct
 program = r"""
 BPF_PROG_ARRAY(syscall, 500);
 
+RAW_TRACEPOINT_PROBE(sys_enter) {
+    int opcode = ctx->args[1];
+    syscall.call(ctx, opcode);
+    bpf_trace_printk("Another syscall: %d", opcode);
+    return 0;
+}
+
+// replaced with `RAW_TRACEPOINT_PROBE`
 int hello(struct bpf_raw_tracepoint_args *ctx) {
     int opcode = ctx->args[1];
     syscall.call(ctx, opcode);
@@ -39,7 +47,9 @@ int ignore_opcode(void *ctx) {
 """
 
 b = BPF(text=program)
-b.attach_raw_tracepoint(tp="sys_enter", fn_name="hello")
+
+# Replaced with `RAW_TRACEPOINT_PROBE`
+# b.attach_raw_tracepoint(tp="sys_enter", fn_name="hello")
 
 ignore_fn = b.load_func("ignore_opcode", BPF.RAW_TRACEPOINT)
 exec_fn = b.load_func("hello_exec", BPF.RAW_TRACEPOINT)
