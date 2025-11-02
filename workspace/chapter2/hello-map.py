@@ -23,15 +23,15 @@ int hello(void *ctx) {
 """
 
 b = BPF(text=program)
-syscall = b.get_syscall_fnname("execve")
-b.attach_kprobe(event=syscall, fn_name="hello")
-syscall = b.get_syscall_fnname("openat")
-b.attach_kprobe(event=syscall, fn_name="hello")
-syscall = b.get_syscall_fnname("write")
-b.attach_kprobe(event=syscall, fn_name="hello")
+# syscall = b.get_syscall_fnname("execve")
+# b.attach_kprobe(event=syscall, fn_name="hello")
+# syscall = b.get_syscall_fnname("openat")
+# b.attach_kprobe(event=syscall, fn_name="hello")
+# syscall = b.get_syscall_fnname("write")
+# b.attach_kprobe(event=syscall, fn_name="hello")
 
 # Attach to a tracepoint that gets hit for all syscalls
-# b.attach_raw_tracepoint(tp="sys_enter", fn_name="hello")
+b.attach_raw_tracepoint(tp="sys_enter", fn_name="hello")
 
 try:
     while True:
