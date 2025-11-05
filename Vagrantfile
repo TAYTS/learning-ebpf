@@ -1,7 +1,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $bootstrap=<<SCRIPT
-dnf install make glibc-devel elfutils-libelf-devel wget tar vim tmux jq systemtap-sdt-devel clang bcc strace kernel-devel git bcc -y 
+dnf install make glibc-devel elfutils-libelf-devel wget tar vim tmux jq systemtap-sdt-devel clang bcc strace kernel-devel git bcc libbpf-devel -y
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
