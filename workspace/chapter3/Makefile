@@ -18,7 +18,7 @@ load-net: hello.bpf.o
 load-func: hello-func.bpf.o
 	sudo bpftool prog load hello-func.bpf.o /sys/fs/bpf/hello-func
 
-attach-bpftool:`
+attach-bpftool:
 	sudo bpftool net attach xdp pinned /sys/fs/bpf/hello dev eth0
 
 detach-bpftool:
