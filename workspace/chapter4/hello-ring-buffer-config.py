@@ -9,7 +9,7 @@ struct user_msg_t {
 
 BPF_HASH(config, u32, struct user_msg_t);
 
-BPF_PERF_OUTPUT(output);
+BPF_RINGBUF_OUTPUT(output, 1);
 
 struct data_t {
    int pid;
@@ -35,7 +35,7 @@ int hello(void *ctx) {
       bpf_probe_read_kernel(&data.message, sizeof(data.message), message);
    }
 
-   output.perf_submit(ctx, &data, sizeof(data));
+   output.ringbuf_output(&data, sizeof(data), 0);
 
    return 0;
 }
@@ -51,6 +51,6 @@ def print_event(cpu, data, size):
    data = b["output"].event(data)
    print(f"{data.pid} {data.uid} {data.command.decode()} {data.message.decode()}")
 
-b["output"].open_perf_buffer(print_event)
+b["output"].open_ring_buffer(print_event)
 while True:
-   b.perf_buffer_poll()
+   b.ring_buffer_poll()
