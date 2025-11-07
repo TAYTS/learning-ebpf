@@ -1,0 +1,3 @@
+[submodule "workspace/libbpf"]
+	path = workspace/libbpf
+	url = https://github.com/libbpf/libbpf
