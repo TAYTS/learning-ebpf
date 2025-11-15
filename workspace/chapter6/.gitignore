@@ -1,0 +1,3 @@
+hello-verifier
+hello-verifier.bpf.o
+hello-verifier.skel.h
