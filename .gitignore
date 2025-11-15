@@ -4,3 +4,4 @@ vmlinux.h
 *.bpf.o
 *.o
 *.skel.h
+workspace/libbpf/
