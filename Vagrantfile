@@ -1,7 +1,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $bootstrap=<<SCRIPT
-dnf install make glibc-devel elfutils-libelf-devel wget tar vim tmux jq systemtap-sdt-devel clang bcc strace kernel-devel git bcc libbpf-devel gcc-aarch64-linux-gnu gcc-c++-aarch64-linux-gnu bpftool -y
+dnf install make glibc-devel elfutils-libelf-devel wget tar vim tmux jq systemtap-sdt-devel clang bcc strace kernel-devel git bcc libbpf-devel gcc-aarch64-linux-gnu gcc-c++-aarch64-linux-gnu bpftool graphviz -y
 export PATH=$PATH:/usr/aarch64-linux-gnu/bin
 SCRIPT
 
